@@ -22,6 +22,12 @@ def euler_to_quat(roll, pitch, yaw, degrees=False):
 
 def quaternion_to_euler(x, y, z, w, degrees=False):
 
+    norm = np.sqrt(x*x + y*y + z*z + w*w)
+    x /= norm
+    y /= norm
+    z /= norm
+    w /= norm
+
     # Roll
     sinr_cosp = 2 * (w * x + y * z)
     cosr_cosp = 1 - 2 * (x*x + y*y)
