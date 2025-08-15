@@ -1,6 +1,10 @@
 import numpy as np
 
-def euler_to_quat(roll, pitch, yaw):
+def euler_to_quat(roll, pitch, yaw, degrees=False):
+    if degrees:
+        roll = np.deg2rad(roll)
+        pitch = np.deg2rad(pitch)
+        yaw = np.deg2rad(yaw)
     
     cy = np.cos(yaw * 0.5)
     sy = np.sin(yaw * 0.5)
@@ -18,5 +22,5 @@ def euler_to_quat(roll, pitch, yaw):
 
 if __name__ == "__main__":
     roll, pitch, yaw = 20, 15, 0 
-    q = euler_to_quat(roll, pitch, yaw)
+    q = euler_to_quat(roll, pitch, yaw, degrees=True)
     print("Quaternion:", q)
