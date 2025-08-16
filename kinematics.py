@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 def rot_x(theta):
     c, s = np.cos(theta), np.sin(theta)
@@ -52,3 +54,29 @@ angles_rad = [np.deg2rad(a) for a in angles_deg]
 # Get joint positions
 points = calculate_fk(angles_rad)
 print(points)
+
+# Visualization
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+ax.set_box_aspect([1,1,1])             # equal aspect
+ax.set_xlim(-4.5, 4.5); ax.set_ylim(-4.5, 4.5); ax.set_zlim(-4.5, 4.5)
+ax.view_init(elev=20, azim=-60)        # pick a clear angle
+
+
+# Plot links
+ax.plot(points[:,0], points[:,1], points[:,2], '-o', linewidth=3, markersize=6, color='blue')
+
+# Highlight end-effector
+ax.scatter(points[-1,0], points[-1,1], points[-1,2], color='red', s=100, label='End-effector')
+
+# Axes labels
+ax.set_xlabel('X')
+ax.set_ylabel('Y')
+ax.set_zlabel('Z')
+
+# Equal aspect ratio
+ax.set_box_aspect([1,1,1])
+ax.legend()
+plt.title('4-DOF Robot Visualization')
+plt.show()
